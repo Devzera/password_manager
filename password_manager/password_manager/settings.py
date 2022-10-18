@@ -18,7 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'generator.apps.GeneratorConfig'
+    'generator.apps.GeneratorConfig',
+    'storage.apps.StorageConfig',
 ]
 
 MIDDLEWARE = [
