@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import generate_password, check_password
+from .views import create_password, password_detail, save_password
 
 app_name = 'generator'
 
 urlpatterns = [
-    path('generate_password/', generate_password, name='generate_password'),
-    path('check_password/', check_password, name='check_password'),
+    path('create_password/', create_password, name='create_password'),
+    path('save_password/', save_password, name='save_password'),
+    path('password/<slug:key>/', password_detail, name='password_detail'),
 ]

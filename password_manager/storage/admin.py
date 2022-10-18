@@ -7,11 +7,11 @@ from .models import Password
 class PasswordAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
-        'abbreviation',
+        'key',
         'link',
         'password',
         'user'
     )
-    list_display_links = ('pk', 'abbreviation')
-    search_fields = ('abbreviation',)
+    list_display_links = ('pk', 'key')
+    search_fields = ('key',)
     empty_value_display = '-пусто-'

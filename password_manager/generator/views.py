@@ -1,21 +1,28 @@
 import random
 from string import ascii_letters, digits, punctuation
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+
+from storage.models import Password
 
 
-def generate_password(request):
+def create_password(request):
     return render(
         request,
-        template_name='generator/generate_password.html'
+        template_name='generator/create_password.html'
     )
 
 
-def check_password(request):
+def save_password(request):
 
-    length = int(request.GET.get('length', 10))
-    numbers = request.GET.get('numbers') == 'on'
-    special = request.GET.get('special') == 'on'
+    key = request.POST.get('key')
+    link = request.POST.get('link')
+    description = request.POST.get('description')
+    length = int(request.POST.get('length', 10))
+    user = request.user
+
+    numbers = request.POST.get('numbers') == 'on'
+    special = request.POST.get('special') == 'on'
     characters = ascii_letters
 
     if numbers:
@@ -27,12 +34,26 @@ def check_password(request):
     for i in range(length):
         password += random.choice(characters)
 
+    Password.objects.create(
+        key=key,
+        link=link,
+        description=description,
+        password=password,
+        user=user
+    )
+
+    return redirect('generator:password_detail', key)
+
+
+def password_detail(request, key):
+
+    password = get_object_or_404(Password, key=key)
     context = {
-        'password': password
+        'password': password.password
     }
 
     return render(
         request,
-        template_name='generator/check_password.html',
+        template_name='generator/password_detail.html',
         context=context
     )

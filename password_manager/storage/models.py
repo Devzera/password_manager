@@ -6,17 +6,21 @@ User = get_user_model()
 
 
 class Password(models.Model):
-    abbreviation = models.CharField(
-        'Название',
-        max_length=70
-    )
     key = models.SlugField(
         'Ключ',
         unique=True,
         null=True
     )
     link = models.TextField(
-        'Ссылка'
+        'Ссылка',
+        null=True,
+        blank=True
+    )
+    description = models.TextField(
+        'Описание',
+        max_length=300,
+        null=True,
+        blank=True
     )
     password = models.CharField(
         'Пароль',
