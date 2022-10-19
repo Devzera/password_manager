@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
     'generator.apps.GeneratorConfig',
     'storage.apps.StorageConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

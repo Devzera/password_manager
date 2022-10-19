@@ -1,11 +1,13 @@
 import random
 from string import ascii_letters, digits, punctuation
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from storage.models import Password
 
 
+@login_required
 def create_password(request):
     return render(
         request,
@@ -13,6 +15,7 @@ def create_password(request):
     )
 
 
+@login_required
 def save_password(request):
 
     key = request.POST.get('key')
@@ -45,6 +48,7 @@ def save_password(request):
     return redirect('generator:password_detail', key)
 
 
+@login_required
 def password_detail(request, key):
 
     password = get_object_or_404(Password, key=key)
