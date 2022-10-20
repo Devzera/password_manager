@@ -1,0 +1,14 @@
+<footer class="bg-dark text-white" style="margin-top: 90px; padding-bottom: 20px; width: 100%;">
+	<div class="container">
+	  <footer class="py-3 my-4">
+	    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+	      <li class="nav-item"><a href="{% url 'storage:home' %}" class="nav-link px-2 text-white">Главная</a></li>
+	      <li class="nav-item"><a href="{% url 'generator:create_password' %}" class="nav-link px-2 text-white">Генератор</a></li>
+	      <li class="nav-item"><a href="{% url 'storage:storage' request.user.username %}" class="nav-link px-2 text-white">Ваши пароли</a></li>
+	      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Профиль</a></li>
+	      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">О сайте</a></li>
+	    </ul>
+	    <p class="text-center text-white">© 2022 Company, Inc</p>
+	  </footer>
+	</div>
+</footer>

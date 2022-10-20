@@ -5,6 +5,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Password, User
 
 
+def home(request):
+    template = 'storage/home.html'
+    return render(request, template)
+
+
 @login_required
 def profile(request, username):
 

@@ -5,16 +5,29 @@
 {% endblock %}
 
 {% block content  %}
-	<h2>Ваши пароли</h2>
-	{% for password in passwords %}
-		<p>Ключ: {{ password.key }}</p>
-		{% if password.link %}
-			<p>Ссылка: {{ password.link }}</p>
-		{% endif %}
-		{% if password.description %}
-			<p>Описание: {{ password.description }}</p>
-		{% endif %}
-		<p>Пароль: {{ password.password }}</p>
-		<hr>
-	{% endfor %}
+
+			<div style="margin-top: 80px;">
+
+			{% for password in passwords %}
+				<div class="card container mt-4" style="width: 70%;">
+				  <div class="card-body">
+				    <h5 class="card-title">Ключ: {{ password.key }}</h5>
+				  </div>
+				  <ul class="list-group list-group-flush">
+				    <li class="list-group-item">Ссылка: {{ password.link }}</li>
+				    <li class="list-group-item">Ваш пароль: ********</li>
+				  </ul>
+				  <div class="card-body">
+				    <a href="{% url 'generator:password_detail' password.key %}" class="card-link" style="color: #ffcd39;">Подробно</a>
+				  </div>
+				</div>
+			{% endfor %}
+
+			</div>
+
 {% endblock %}
+
+
+
+
+

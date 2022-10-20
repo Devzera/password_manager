@@ -5,5 +5,47 @@
 {% endblock %}
 
 {% block content  %}
-  {% include 'includes/user_form.html' %}
+  <form method="post" class="container" style="width: 60%; margin-top: 80px; margin-bottom: 200px;">
+
+    {% csrf_token %}
+
+    <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputName" placeholder="Имя" name="first_name">
+      <label for="InputName">Имя</label>
+    </div>
+
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputLastName" placeholder="Фамилия" name="last_name">
+      <label for="InputLastName">Фамилия</label>
+    </div>
+
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputNickName" placeholder="Имя пользователя" name="username">
+      <label for="InputNickName">Имя пользователя</label>
+    </div>
+
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputEmail" placeholder="Адрес электронной почты" name="email">
+      <label for="InputEmail">Адрес электронной почты</label>
+    </div>
+
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputPassword1" placeholder="Пароль" name="password1">
+      <label for="InputPassword1">Пароль</label>
+    </div>
+
+
+    <div class="form-floating mt-4">
+      <input class="form-control" id="InputPassword2" placeholder="Подтвержение пароль" name="password2">
+      <label for="InputPassword2">Подтвержение пароль</label>
+    </div>
+
+    <button class="w-100 btn btn-dark mt-5" type="submit" style="height: 45px;">Зарегистрироваться</button>
+  </form>
 {% endblock %}

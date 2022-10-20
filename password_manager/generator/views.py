@@ -1,9 +1,8 @@
-import random
-from string import ascii_letters, digits, punctuation
-
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+from generator.utils import generate_password
 from storage.models import Password
 
 
@@ -26,16 +25,8 @@ def save_password(request):
 
     numbers = request.POST.get('numbers') == 'on'
     special = request.POST.get('special') == 'on'
-    characters = ascii_letters
 
-    if numbers:
-        characters += digits
-    if special:
-        characters += punctuation
-
-    password = ''
-    for i in range(length):
-        password += random.choice(characters)
+    password = generate_password(length, numbers, special)
 
     Password.objects.create(
         key=key,
@@ -49,11 +40,24 @@ def save_password(request):
 
 
 @login_required
+def change_password(request, key):
+    password = get_object_or_404(Password, key=key)
+
+    if password.user != request.user:
+        return HttpResponse('<h1>Нет доступа</h1>')
+
+    password.password = generate_password(24, True, True)
+    password.save()
+
+    return redirect('generator:password_detail', key)
+
+
+@login_required
 def password_detail(request, key):
 
     password = get_object_or_404(Password, key=key)
     context = {
-        'password': password.password
+        'password': password
     }
 
     return render(

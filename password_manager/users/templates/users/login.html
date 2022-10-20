@@ -5,5 +5,32 @@
 {% endblock %}
 
 {% block content  %}
-  {% include 'includes/user_form.html' %}
+  <form method="post" class="container" style="width: 60%; margin-top: 80px; margin-bottom: 250px;">
+
+    {% csrf_token %}
+
+    <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
+
+    <div class="form-floating mt-4">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Ваше имя</label>
+    </div>
+
+    <div class="form-floating mt-4">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Пароль</label>
+    </div>
+
+    <div class="checkbox mb-3 mt-4">
+      <label>
+        <input type="checkbox" value="remember-me"> Запомнить меня
+      </label>
+    </div>
+
+    <button class="w-100 btn btn-dark mt-4" type="submit" style="height: 45px;">Авторизироваться</button>
+</form>
 {% endblock %}
+
+
+
+
