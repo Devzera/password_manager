@@ -11,7 +11,7 @@
         <li><a href="{% url 'storage:home' %}" class="nav-link px-2 text-warning">Главная</a></li>
         <li><a href="{% url 'generator:create_password' %}" class="nav-link px-2 text-white">Генератор</a></li>
         <li><a href="{% url 'storage:storage' request.user.username %}" class="nav-link px-2 text-white">Ваши пароли</a></li>
-        <li><a href="" class="nav-link px-2 text-white">Профиль</a></li>
+        <li><a href="{% url 'users:profile' request.user.username %}" class="nav-link px-2 text-white">Профиль</a></li>
         <li><a href="" class="nav-link px-2 text-white">О сайте</a></li>
       </ul>
 
