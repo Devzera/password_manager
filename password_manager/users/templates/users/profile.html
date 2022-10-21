@@ -13,21 +13,22 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Имя</label>
-              <input type="text" class="form-control" id="firstName" value="{{ user.username }}" readonly>
+              <input type="text" class="form-control" id="firstName" value="{{ user.first_name }}" readonly>
             </div>
 
             <div class="col-sm-6">
               <label for="lastName" class="form-label">Фамилия</label>
-              <input type="text" class="form-control" id="lastName" value="{{ user.username }}" readonly>
+              <input type="text" class="form-control" id="lastName" value="{{ user.last_name }}" readonly>
             </div>
 
+            <div class="col-12">
+              <label for="userName" class="form-label">Никнейм</label>
+              <input type="text" class="form-control" id="userName" value="{{ user.username }}" readonly>
+            </div>
 
             <div class="col-12">
               <label for="email" class="form-label">Почта</label>
               <input type="email" class="form-control" id="email" value="{{ user.email }}" readonly>
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
             </div>
 
 	          <hr class="my-4">

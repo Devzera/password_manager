@@ -5,19 +5,22 @@
 {% endblock %}
 
 {% block content  %}
-  <form method="post" class="container" style="width: 60%; margin-top: 80px; margin-bottom: 250px;">
+
+  <form
+    method="post" class="container"
+    style="width: 60%; margin-top: 80px; margin-bottom: 250px;">
 
     {% csrf_token %}
 
     <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
 
     <div class="form-floating mt-4">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
       <label for="floatingInput">Ваше имя</label>
     </div>
 
     <div class="form-floating mt-4">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
       <label for="floatingPassword">Пароль</label>
     </div>
 

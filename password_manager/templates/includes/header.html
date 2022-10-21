@@ -8,17 +8,69 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'storage:home' %}" class="nav-link px-2 text-warning">Главная</a></li>
-        <li><a href="{% url 'generator:create_password' %}" class="nav-link px-2 text-white">Генератор</a></li>
-        <li><a href="{% url 'storage:storage' request.user.username %}" class="nav-link px-2 text-white">Ваши пароли</a></li>
-        <li><a href="{% url 'users:profile' request.user.username %}" class="nav-link px-2 text-white">Профиль</a></li>
-        <li><a href="" class="nav-link px-2 text-white">О сайте</a></li>
+        <li>
+          <a href="{% url 'storage:home' %}"
+             class="nav-link px-2
+             {% if request.resolver_match.view_name  == 'storage:home' %}
+              text-warning
+              {% else %}
+              text-white
+              {% endif %}">
+            Главная
+          </a>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'generator:create_password' %}"
+               class="nav-link px-2
+               {% if request.resolver_match.view_name  == 'generator:create_password' %}
+                text-warning
+               {% else %}
+                text-white
+               {% endif %}">
+              Генератор
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'storage:storage' request.user.username %}"
+               class="nav-link px-2
+               {% if request.resolver_match.view_name  == 'storage:storage' %}
+                text-warning
+               {% else %}
+                text-white
+               {% endif %}">
+              Ваши пароли
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'users:profile' request.user.username %}"
+               class="nav-link px-2
+               {% if request.resolver_match.view_name  == 'users:profile' %}
+                text-warning
+               {% else %}
+                text-white
+               {% endif %}">
+              Профиль
+            </a>
+          </li>
+        {% endif %}
+        <li>
+          <a href=""
+             class="nav-link px-2 text-white">
+            О сайте
+          </a>
+        </li>
       </ul>
-
-      <div class="text-end">
-        <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2">Авторизация</a>
-        <a href="{% url 'users:signup' %}" class="btn btn-warning">Регистрация</a>
-      </div>
+      {% if request.user.is_authenticated %}
+        <div class="text-end">
+          <a href="{% url 'users:logout' %}" class="btn btn-warning">Выход</a>
+        </div>
+      {% else %}
+        <div class="text-end">
+          <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2">Авторизация</a>
+          <a href="{% url 'users:signup' %}" class="btn btn-warning">Регистрация</a>
+        </div>
+      {% endif %}
 
     </div>
 
