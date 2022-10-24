@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path, reverse_lazy
+from django.urls import path
 
 from . import views
 from .views import profile
@@ -7,7 +7,7 @@ from .views import profile
 app_name = 'users'
 
 urlpatterns = [
-    path('profile/<slug:username>/', profile, name='profile'),
+    path('account/<slug:username>/', profile, name='profile'),
     path(
         'signup/',
         views.SignUp.as_view(),

@@ -8,5 +8,5 @@ urlpatterns = [
     path('create_password/', create_password, name='create_password'),
     path('save_password/', save_password, name='save_password'),
     path('change_password/<slug:key>', change_password, name='change_password'),
-    path('password/<slug:key>/', password_detail, name='password_detail'),
+    path('<slug:key>/', password_detail, name='password_detail'),
 ]
