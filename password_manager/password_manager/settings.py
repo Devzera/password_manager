@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'generator.apps.GeneratorConfig',
-    'storage.apps.StorageConfig',
     'users.apps.UsersConfig',
 ]
 
@@ -95,4 +94,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-LOGIN_REDIRECT_URL = 'storage:home'
+LOGIN_REDIRECT_URL = 'passwords:home'

@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from storage.models import User
+from generator.models import User
 from .forms import CreationForm
 
 

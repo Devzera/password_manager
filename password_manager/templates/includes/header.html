@@ -11,7 +11,7 @@
         <li>
           <a href="{% url 'passwords:home' %}"
              class="nav-link px-2
-             {% if request.resolver_match.view_name  == 'storage:home' %}
+             {% if request.resolver_match.view_name  == 'passwords:home' %}
               text-warning
               {% else %}
               text-white
@@ -21,9 +21,9 @@
         </li>
         {% if request.user.is_authenticated %}
           <li>
-            <a href="{% url 'generator:create_password' %}"
+            <a href="{% url 'passwords:create_password' %}"
                class="nav-link px-2
-               {% if request.resolver_match.view_name  == 'generator:create_password' %}
+               {% if request.resolver_match.view_name  == 'passwords:create_password' %}
                 text-warning
                {% else %}
                 text-white
@@ -34,7 +34,7 @@
           <li>
             <a href="{% url 'passwords:passwords' request.user.username %}"
                class="nav-link px-2
-               {% if request.resolver_match.view_name  == 'storage:storage' %}
+               {% if request.resolver_match.view_name  == 'passwords:passwords' %}
                 text-warning
                {% else %}
                 text-white

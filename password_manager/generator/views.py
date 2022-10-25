@@ -2,8 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from generator.utils import generate_password
-from storage.models import Password
+from .utils import generate_password
+from .models import Password, User
+
+
+def home(request):
+    template = 'generator/home.html'
+    return render(request, template)
 
 
 @login_required
@@ -36,20 +41,25 @@ def save_password(request):
         user=user
     )
 
-    return redirect('generator:password_detail', (request.user.username, key))
+    return redirect('passwords:password_detail', request.user.username, key)
 
 
 @login_required
-def change_password(request, username, key):
-    password = get_object_or_404(Password, key=key)
+def passwords(request, username):
 
-    if password.user != request.user:
+    if username != request.user.username:
         return HttpResponse('<h1>Нет доступа</h1>')
 
-    password.password = generate_password(24, True, True)
-    password.save()
+    template = 'generator/passwords.html'
 
-    return redirect('generator:password_detail', (request.user.username, key))
+    user = get_object_or_404(User, username=username)
+    password = Password.objects.filter(user=user)
+
+    context = {
+        'passwords': password
+    }
+
+    return render(request, template, context)
 
 
 @login_required
@@ -69,3 +79,15 @@ def password_detail(request, username, key):
         context=context
     )
 
+
+@login_required
+def change_password(request, key):
+    password = get_object_or_404(Password, key=key)
+
+    if password.user != request.user:
+        return HttpResponse('<h1>Нет доступа</h1>')
+
+    password.password = generate_password(24, True, True)
+    password.save()
+
+    return redirect('passwords:password_detail', request.user.username, key)
