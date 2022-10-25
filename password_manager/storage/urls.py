@@ -1,11 +1,11 @@
 from django.urls import path
 
-from .views import profile, home
+from .views import passwords, home
 
 
-app_name = 'storage'
+app_name = 'passwords'
 
 urlpatterns = [
-    path('<slug:username>/', profile, name='storage'),
+    path('<slug:username>/passwords/', passwords, name='passwords'),
     path('', home, name='home'),
 ]

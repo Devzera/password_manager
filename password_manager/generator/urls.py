@@ -7,6 +7,6 @@ app_name = 'generator'
 urlpatterns = [
     path('create_password/', create_password, name='create_password'),
     path('save_password/', save_password, name='save_password'),
-    path('change_password/<slug:key>', change_password, name='change_password'),
-    path('<slug:key>/', password_detail, name='password_detail'),
+    path('change_password/<slug:username>/<slug:key>', change_password, name='change_password'),
+    path('<slug:username>/passwords/<slug:key>/', password_detail, name='password_detail'),
 ]

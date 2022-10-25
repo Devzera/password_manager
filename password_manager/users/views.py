@@ -17,7 +17,7 @@ class SignUp(CreateView):
 @login_required
 def profile(request, username):
     if request.user.username != username:
-        return HttpResponse('<h1>Нет доступа</h1>')
+        return HttpResponse('<h1>Нет доступа232323</h1>')
 
     template = 'users/profile.html'
 

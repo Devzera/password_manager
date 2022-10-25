@@ -4,10 +4,9 @@ from django.urls import path
 from . import views
 from .views import profile
 
-app_name = 'users'
+app_name = 'accounts'
 
 urlpatterns = [
-    path('account/<slug:username>/', profile, name='profile'),
     path(
         'signup/',
         views.SignUp.as_view(),
@@ -27,4 +26,5 @@ urlpatterns = [
         ),
         name='login'
     ),
+    path('<slug:username>/', profile, name='profile'),
 ]

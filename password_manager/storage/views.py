@@ -11,7 +11,7 @@ def home(request):
 
 
 @login_required
-def profile(request, username):
+def passwords(request, username):
 
     if username != request.user.username:
         return HttpResponse('<h1>Нет доступа</h1>')

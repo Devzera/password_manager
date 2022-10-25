@@ -36,11 +36,11 @@ def save_password(request):
         user=user
     )
 
-    return redirect('generator:password_detail', key)
+    return redirect('generator:password_detail', (request.user.username, key))
 
 
 @login_required
-def change_password(request, key):
+def change_password(request, username, key):
     password = get_object_or_404(Password, key=key)
 
     if password.user != request.user:
@@ -49,11 +49,14 @@ def change_password(request, key):
     password.password = generate_password(24, True, True)
     password.save()
 
-    return redirect('generator:password_detail', key)
+    return redirect('generator:password_detail', (request.user.username, key))
 
 
 @login_required
-def password_detail(request, key):
+def password_detail(request, username, key):
+
+    if request.user.username != username:
+        return HttpResponse('<h1>Нет доступа</h1>')
 
     password = get_object_or_404(Password, key=key)
     context = {
@@ -65,3 +68,4 @@ def password_detail(request, key):
         template_name='generator/password_detail.html',
         context=context
     )
+
