@@ -8,8 +8,8 @@ from generator.models import Password
 class PasswordsAPI(APIView):
 
     def get(self, request, username):
-        if request.user.username != username:
-            return Response({'passwords': 'not allowed'})
+        # if request.user.username != username:
+        #     return Response({'passwords': 'not allowed'})
 
         passwords = Password.objects.filter(user=request.user).values()
 
