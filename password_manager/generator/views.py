@@ -41,18 +41,14 @@ def save_password(request):
         user=user
     )
 
-    return redirect('passwords:password_detail', request.user.username, key)
+    return redirect('passwords:password_detail', key)
 
 
 @login_required
-def passwords(request, username):
-
-    if username != request.user.username:
-        return HttpResponse('<h1>Нет доступа</h1>')
-
+def passwords(request):
     template = 'generator/passwords.html'
 
-    user = get_object_or_404(User, username=username)
+    user = request.user
     password = Password.objects.filter(user=user)
 
     context = {
@@ -63,12 +59,13 @@ def passwords(request, username):
 
 
 @login_required
-def password_detail(request, username, key):
-
-    if request.user.username != username:
-        return HttpResponse('<h1>Нет доступа</h1>')
+def password_detail(request, key):
 
     password = get_object_or_404(Password, key=key)
+
+    if request.user != password.user:
+        return redirect('passwords:passwords')
+
     context = {
         'password': password
     }

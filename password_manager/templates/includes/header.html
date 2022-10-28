@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a href="{% url 'passwords:passwords' request.user.username %}"
+            <a href="{% url 'passwords:passwords' %}"
                class="nav-link px-2
                {% if request.resolver_match.view_name  == 'passwords:passwords' %}
                 text-warning

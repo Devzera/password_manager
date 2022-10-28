@@ -6,7 +6,7 @@
 
 		    {% if request.user.is_authenticated %}
 		      <li class="nav-item"><a href="{% url 'passwords:create_password' %}" class="nav-link px-2 text-white">Генератор</a></li>
-		      <li class="nav-item"><a href="{% url 'passwords:passwords' request.user.username %}" class="nav-link px-2 text-white">Ваши пароли</a></li>
+		      <li class="nav-item"><a href="{% url 'passwords:passwords' %}" class="nav-link px-2 text-white">Ваши пароли</a></li>
 		      <li class="nav-item"><a href="{% url 'accounts:profile' request.user.username %}" class="nav-link px-2 text-white">Профиль</a></li>
 		    {% endif %}
 
