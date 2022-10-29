@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-
+from django.urls import reverse_lazy, reverse
 
 User = get_user_model()
 
@@ -39,3 +39,6 @@ class Password(models.Model):
 
     def __str__(self):
         return self.key
+
+    def get_absolute_url(self):
+        return reverse('passwords:password_detail', kwargs={'key': self.key})

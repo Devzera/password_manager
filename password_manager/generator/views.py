@@ -1,61 +1,65 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import TemplateView, View, ListView, DetailView
 
 from .utils import generate_password
 from .models import Password, User
 
 
-def home(request):
-    template = 'generator/home.html'
-    return render(request, template)
+class HomeView(TemplateView):
+    template_name = 'generator/home.html'
 
 
-@login_required
-def create_password(request):
-    return render(
-        request,
-        template_name='generator/create_password.html'
-    )
+class CreatePasswordView(LoginRequiredMixin, TemplateView):
+    template_name = 'generator/create_password.html'
 
 
-@login_required
-def save_password(request):
+class SavePasswordView(LoginRequiredMixin, View):
 
-    key = request.POST.get('key')
-    link = request.POST.get('link')
-    description = request.POST.get('description')
-    length = int(request.POST.get('length', 10))
-    user = request.user
+    def post(self, request):
 
-    numbers = request.POST.get('numbers') == 'on'
-    special = request.POST.get('special') == 'on'
+        key = request.POST.get('key')
+        link = request.POST.get('link')
+        description = request.POST.get('description')
+        length = int(request.POST.get('length', 10))
+        user = request.user
+        numbers = request.POST.get('numbers') == 'on'
+        special = request.POST.get('special') == 'on'
 
-    password = generate_password(length, numbers, special)
+        password = generate_password(length, numbers, special)
 
-    Password.objects.create(
-        key=key,
-        link=link,
-        description=description,
-        password=password,
-        user=user
-    )
+        Password.objects.create(
+            key=key,
+            link=link,
+            description=description,
+            password=password,
+            user=user
+        )
 
-    return redirect('passwords:password_detail', key)
+        return redirect('passwords:password_detail', key)
 
 
-@login_required
-def passwords(request):
-    template = 'generator/passwords.html'
+class PasswordsView(LoginRequiredMixin, ListView):
+    template_name = 'generator/passwords.html'
+    context_object_name = 'passwords'
 
-    user = request.user
-    password = Password.objects.filter(user=user)
+    def get_queryset(self):
+        user = self.request.user
+        return Password.objects.filter(user=user)
 
-    context = {
-        'passwords': password
-    }
 
-    return render(request, template, context)
+class PasswordDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'generator/password_detail.html'
+    model = Password
+    slug_url_kwarg = 'key'
+    context_object_name = 'password'
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     password = get_object_or_404(Password, user=user)
+    #     return password.objects.get(key=key)
 
 
 @login_required
@@ -87,4 +91,4 @@ def change_password(request, key):
     password.password = generate_password(24, True, True)
     password.save()
 
-    return redirect('passwords:password_detail', request.user.username, key)
+    return redirect('passwords:password_detail', key)
