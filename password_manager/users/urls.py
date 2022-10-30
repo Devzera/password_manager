@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
 from . import views
-from .views import profile
+from .views import ProfileView
 
 app_name = 'accounts'
 
@@ -26,5 +26,5 @@ urlpatterns = [
         ),
         name='login'
     ),
-    path('<slug:username>/', profile, name='profile'),
+    path('<slug:username>/', ProfileView.as_view(), name='profile'),
 ]

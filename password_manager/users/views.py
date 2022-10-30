@@ -1,10 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-import requests
+from django.views.generic import CreateView, DetailView
 from generator.models import User
+
 from .forms import CreationForm
 
 
@@ -14,26 +12,12 @@ class SignUp(CreateView):
     success_url = reverse_lazy('users:login')
 
 
-@login_required
-def profile(request, username):
-    if request.user.username != username:
-        return HttpResponse('<h1>Нет доступа232323</h1>')
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = 'users/profile.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    context_object_name = 'user'
 
-    data = {
-        'password': 'Vadim574440',
-        'username': 'Dev'
-    }
-
-    response = requests.post(
-        'http://127.0.0.1:8000/api/auth/token/login',
-        json=data
-    )
-    auth_token = response.json().get('auth_token')
-    template = 'users/profile.html'
-
-    user = get_object_or_404(User, username=username)
-    context = {
-        'user': user,
-        'auth_token': auth_token
-    }
-    return render(request, template, context)
+    def get_queryset(self):
+        return User.objects.filter(username=self.kwargs['username'])

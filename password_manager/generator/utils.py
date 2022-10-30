@@ -8,7 +8,6 @@ def generate_password(length, numbers, special):
         characters += digits
     if special:
         characters += punctuation
-
     password = ''
     for i in range(length):
         password += choice(characters)
