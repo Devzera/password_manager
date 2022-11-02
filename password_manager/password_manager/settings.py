@@ -24,6 +24,7 @@ INSTALLED_APPS = [
 
     'generator.apps.GeneratorConfig',
     'users.apps.UsersConfig',
+    'about.apps.AboutConfig',
     'api.apps.ApiConfig',
 ]
 

@@ -10,7 +10,7 @@
 		      <li class="nav-item"><a href="{% url 'accounts:profile' request.user.username %}" class="nav-link px-2 text-white">Профиль</a></li>
 		    {% endif %}
 
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-white">О сайте</a></li>
+	      <li class="nav-item"><a href="{% url 'about:about' %}" class="nav-link px-2 text-white">О сайте</a></li>
 	    </ul>
 	    <p class="text-center text-white">© 2022 Company, Inc</p>
 	  </footer>
