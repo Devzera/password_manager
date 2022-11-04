@@ -10,6 +10,8 @@ class PasswordAdmin(admin.ModelAdmin):
         'key',
         'link',
         'password',
+        'updated_at',
+        'created_at',
         'user'
     )
     list_display_links = ('pk', 'key')

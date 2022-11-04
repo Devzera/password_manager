@@ -1,5 +1,7 @@
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView, TemplateView, View
 
 from .models import Password
@@ -10,11 +12,10 @@ class HomeView(TemplateView):
     template_name = 'generator/home.html'
 
 
-class CreatePasswordView(LoginRequiredMixin, TemplateView):
-    template_name = 'generator/create_password.html'
+class CreatePasswordView(LoginRequiredMixin, View):
 
-
-class SavePasswordView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'generator/create_password.html')
 
     def post(self, request):
         key = request.POST.get('key')
@@ -49,6 +50,19 @@ class PasswordDetailView(LoginRequiredMixin, DetailView):
     slug_field = 'key'
     slug_url_kwarg = 'key'
     context_object_name = 'password'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        password = Password.objects.get(
+            user=self.request.user,
+            key=self.kwargs['key']
+        )
+        context['is_updated'] = (
+                password.updated_at
+                - password.created_at
+                < datetime.timedelta(seconds=1)
+        )
+        return context
 
     def get_queryset(self):
         return Password.objects.filter(

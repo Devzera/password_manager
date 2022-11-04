@@ -29,6 +29,18 @@ class Password(models.Model):
         'пароль',
         max_length=32
     )
+    updated_at = models.DateTimeField(
+        'дата обновления',
+        db_index=True,
+        auto_now=True,
+        help_text='Когда последний раз обновляли пароль'
+    )
+    created_at = models.DateTimeField(
+        'дата создания',
+        db_index=True,
+        auto_now_add=True,
+        help_text='Когда был создан пароль'
+    )
     user = models.ForeignKey(
         User,
         verbose_name='пользователь',
