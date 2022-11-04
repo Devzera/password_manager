@@ -9,18 +9,21 @@ class Password(models.Model):
     key = models.SlugField(
         'ключ',
         unique=True,
-        null=True
+        null=True,
+        help_text='Ключ доступа для вашего пароля'
     )
-    link = models.TextField(
+    link = models.URLField(
         'ссылка',
         null=True,
-        blank=True
+        blank=True,
+        help_text='Ссылка на ресурс, где используется пароль'
     )
     description = models.TextField(
         'описание',
         max_length=300,
         null=True,
-        blank=True
+        blank=True,
+        help_text='Описание'
     )
     password = models.CharField(
         'пароль',
