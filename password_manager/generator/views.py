@@ -79,3 +79,34 @@ class ChangePasswordView(LoginRequiredMixin, View):
         password.password = generate_password(24, True, True)
         password.save()
         return redirect('passwords:password_detail', key)
+
+
+class ChangePasswordInfoView(LoginRequiredMixin, View):
+
+    def get(self, request, key):
+        user = request.user
+        password = get_object_or_404(Password, key=key, user=user)
+        return render(
+            request,
+            'generator/change_card.html',
+            context={'password': password}
+        )
+
+    def post(self, request, key):
+        link = request.POST.get('link')
+        description = request.POST.get('description')
+        user = request.user
+        password = get_object_or_404(Password, key=key, user=user)
+        password.link = link or password.link
+        password.description = description or password.description
+        password.save()
+        return redirect('passwords:password_detail', key)
+
+
+class DeletePasswordView(LoginRequiredMixin, View):
+
+    def post(self, request, key):
+        user = request.user
+        password = get_object_or_404(Password, key=key, user=user)
+        password.delete()
+        return redirect('passwords:passwords')
