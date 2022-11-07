@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from generator.models import Password
+from rest_framework import serializers
 
 
 class PasswordSerializer(serializers.ModelSerializer):

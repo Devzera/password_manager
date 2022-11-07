@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content  %}
+	<div class="container mt-5">
+    <div class="g-5">
+      <div style="width: 100%">
+        <h4 class="mb-3">Изменить данные профиля</h4>
+        <form
+          method="post"
+          action="{% url 'accounts:profile_edit' request.user.username %}"
+          class="needs-validation"
+        >
+         {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Имя</label>
+              <input type="text" class="form-control" id="firstName" name="first_name" value="{{ user.first_name }}">
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Фамилия</label>
+              <input type="text" class="form-control" id="lastName" name="last_name" value="{{ user.last_name }}">
+            </div>
+
+            <div class="col-12">
+              <label for="userName" class="form-label">Никнейм</label>
+              <input type="text" class="form-control" id="userName" name="username" value="{{ user.username }}">
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Почта</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+            </div>
+
+	          <hr class="my-4">
+
+          </div>
+
+          <hr class="my-4">
+
+          <button class="btn btn-warning mt-5" type="submit" style="height: 45px; width: 100%">Изменить</button>
+        </form>
+      </div>
+    </div>
+	</div>
+{% endblock %}

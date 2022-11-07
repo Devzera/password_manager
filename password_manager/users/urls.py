@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
-from .views import ProfileView, SignUp
+from .views import ProfileChangeInfoView, ProfileView, SignUp
 
 app_name = 'accounts'
 
@@ -25,5 +25,6 @@ urlpatterns = [
         ),
         name='login'
     ),
+    path('<slug:username>/edit', ProfileChangeInfoView.as_view(), name='profile_edit'),
     path('<slug:username>/', ProfileView.as_view(), name='profile'),
 ]
