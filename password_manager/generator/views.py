@@ -97,6 +97,8 @@ class ChangePasswordInfoView(LoginRequiredMixin, View):
         description = request.POST.get('description')
         user = request.user
         password = get_object_or_404(Password, key=key, user=user)
+        key = request.POST.get('key')
+        password.key = key or password.key
         password.link = link or password.link
         password.description = description or password.description
         password.save()

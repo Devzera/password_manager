@@ -44,4 +44,4 @@ class ProfileChangeInfoView(LoginRequiredMixin, View):
         user.username = username or user.username
         user.email = email or user.email
         user.save()
-        return redirect('accounts:profile', request.user.username)
+        return redirect('accounts:profile', user.username)
