@@ -4,10 +4,19 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
+class CreatePasswordAPI(APIView):
+
+    def post(self, request, token):
+        user = User.objects.get(auth_token=token)
+        passwords = user.passwords.all().values()
+
+        return Response({'passwords': list(passwords)})
+
+
 class PasswordsAPI(APIView):
 
-    def get(self, request):
-        user = request.user
+    def get(self, request, token):
+        user = User.objects.get(auth_token=token)
         passwords = user.passwords.all().values()
 
         return Response({'passwords': list(passwords)})
@@ -15,9 +24,9 @@ class PasswordsAPI(APIView):
 
 class PasswordDetailAPI(APIView):
 
-    def get(self, request, key):
+    def get(self, request, token, key):
 
-        user = request.user
+        user = User.objects.get(auth_token=token)
         password = user.passwords.get(key=key)
 
         return Response({'passwords': model_to_dict(password)})
