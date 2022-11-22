@@ -2,7 +2,7 @@ from random import choice
 from string import ascii_letters, digits, punctuation
 
 
-def generate_password(length, numbers, special):
+def generate_password(length=10, numbers=True, special=True):
     characters = ascii_letters
     if numbers:
         characters += digits
