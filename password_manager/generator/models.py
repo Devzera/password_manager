@@ -8,9 +8,14 @@ User = get_user_model()
 class Password(models.Model):
     key = models.SlugField(
         'ключ',
-        unique=True,
         null=True,
         help_text='Ключ доступа для вашего пароля'
+    )
+    check_unique = models.SlugField(
+        'уникальность',
+        null=True,
+        unique=True,
+        help_text='Уникальность на урвне пользователя'
     )
     link = models.URLField(
         'ссылка',
@@ -57,3 +62,7 @@ class Password(models.Model):
 
     def get_absolute_url(self):
         return reverse('passwords:password_detail', kwargs={'key': self.key})
+
+    def save(self, *args, **kwargs):
+        self.check_unique = f'{self.user}_{self.key}'
+        super().save(*args, **kwargs)

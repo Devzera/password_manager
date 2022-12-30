@@ -2,14 +2,20 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import DetailView, ListView, TemplateView, View
+from django.views.generic import DetailView, ListView, TemplateView, View, FormView
 
 from .models import Password
+from .templates.forms import CreatePasswordForm
 from .utils import generate_password
 
 
 class HomeView(TemplateView):
     template_name = 'generator/home.html'
+
+
+class CreatePassword2View(LoginRequiredMixin, FormView):
+    form_class = CreatePasswordForm
+    template_name = 'generator/create_password2.html'
 
 
 class CreatePasswordView(LoginRequiredMixin, View):
