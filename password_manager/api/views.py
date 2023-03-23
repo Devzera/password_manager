@@ -1,8 +1,8 @@
 from django.forms import model_to_dict
-from generator.models import Password, User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from generator.models import Password, User
 from generator.utils import generate_password
 
 

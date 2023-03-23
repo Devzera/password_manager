@@ -1,8 +1,9 @@
 from django.urls import path
 
 from .views import (ChangePasswordInfoView, ChangePasswordView,
-                    CreatePasswordView, DeletePasswordView, HomeView,
-                    PasswordDetailView, PasswordsView, CreatePassword2View)
+                    CreatePassword2View, CreatePasswordView,
+                    DeletePasswordView, HomeView, PasswordDetailView,
+                    PasswordsView)
 
 app_name = 'passwords'
 

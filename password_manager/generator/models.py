@@ -56,13 +56,10 @@ class Password(models.Model):
     class Meta:
         verbose_name = 'пароль'
         verbose_name_plural = 'пароли'
+        unique_together = ['user', 'key']
 
     def __str__(self):
         return self.key
 
     def get_absolute_url(self):
         return reverse('passwords:password_detail', kwargs={'key': self.key})
-
-    def save(self, *args, **kwargs):
-        self.check_unique = f'{self.user}_{self.key}'
-        super().save(*args, **kwargs)

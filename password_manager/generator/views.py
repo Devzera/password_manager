@@ -2,7 +2,8 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import DetailView, ListView, TemplateView, View, FormView
+from django.views.generic import (DetailView, FormView, ListView, TemplateView,
+                                  View)
 
 from .models import Password
 from .templates.forms import CreatePasswordForm
