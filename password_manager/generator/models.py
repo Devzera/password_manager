@@ -11,12 +11,6 @@ class Password(models.Model):
         null=True,
         help_text='Ключ доступа для вашего пароля'
     )
-    check_unique = models.SlugField(
-        'уникальность',
-        null=True,
-        unique=True,
-        help_text='Уникальность на урвне пользователя'
-    )
     link = models.URLField(
         'ссылка',
         null=True,
