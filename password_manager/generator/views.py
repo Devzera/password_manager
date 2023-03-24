@@ -6,17 +6,11 @@ from django.views.generic import (DetailView, FormView, ListView, TemplateView,
                                   View)
 
 from .models import Password
-from .templates.forms import CreatePasswordForm
 from .utils import generate_password
 
 
 class HomeView(TemplateView):
     template_name = 'generator/home.html'
-
-
-class CreatePassword2View(LoginRequiredMixin, FormView):
-    form_class = CreatePasswordForm
-    template_name = 'generator/create_password2.html'
 
 
 class CreatePasswordView(LoginRequiredMixin, View):
